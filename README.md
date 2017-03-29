@@ -71,7 +71,8 @@ All methods return:
 - `events` is a list of [ICAL.Event](http://mozilla-comm.github.io/ical.js/api/ICAL.Event.html) objects.
 - `occurrences` is a list of [ICAL.Event.occurrenceDetails](http://mozilla-comm.github.io/ical.js/api/ICAL.Event.html#.occurrenceDetails) objects.
 
-### icalExpander.component root [ICAL.Component](http://mozilla-comm.github.io/ical.js/api/ICAL.Component.html)
+### icalExpander.component
+Root [ICAL.Component](http://mozilla-comm.github.io/ical.js/api/ICAL.Component.html) from parsed data.
 
 ## TODO
 - RECURRENCE-ID: check that within same day?
