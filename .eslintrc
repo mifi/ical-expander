@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "max-len": 0,
+  },
+  "parserOptions": {
+    "sourceType": "script",
+    "ecmaVersion": 6,
+  },
+}

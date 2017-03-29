@@ -1,0 +1,36 @@
+{
+  "name": "ical-expander",
+  "version": "1.0.0",
+  "description": "ICS / iCal / iCalendar parser / expander",
+  "main": "index.js",
+  "scripts": {
+    "test": "env TZ=Etc/UTC mocha && eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mifi/ical-expander.git"
+  },
+  "author": "Mikael Finstad <finstaden@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mifi/ical-expander/issues"
+  },
+  "homepage": "https://github.com/mifi/ical-expander#readme",
+  "engines": {
+    "node": ">=4"
+  },
+  "dependencies": {
+    "ical.js": "^1.2.2"
+  },
+  "devDependencies": {
+    "env": "0.0.2",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb-base": "^11.1.2",
+    "eslint-plugin-import": "^2.2.0",
+    "mocha": "^3.2.0"
+  },
+  "files": [
+    "index.js",
+    "zones-compiled.json"
+  ]
+}
