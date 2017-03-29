@@ -20,12 +20,13 @@ npm install ical-expander
 Download .ics from google calendar for example.
 
 ```
-const ical-expander = require('ical-expander');
+const IcalExpander = require('ical-expander');
+const fs = require('fs');
 
-const ics = fs.readFileSync('./basic.ics'), 'utf-8');
+const ics = fs.readFileSync('./basic.ics', 'utf-8');
 
-const events = new IcalExpander({ ics, maxIterations: 100 })
-  .between(new Date('2016-07-24T00:00:00.000Z'), new Date('2016-07-26T00:00:00.000Z'));
+const icalExpander = new IcalExpander({ ics, maxIterations: 100 });
+const events = icalExpander.between(new Date('2017-01-24T00:00:00.000Z'), new Date('2017-03-30T00:00:00.000Z'));
 
 const mappedEvents = events.events.map(e => ({ startDate: e.startDate, summary: e.summary }));
 const mappedOccurrences = events.occurrences.map(o => ({ startDate: o.startDate, summary: o.item.summary }));
