@@ -12,6 +12,7 @@ const path = require('path');
 // https://github.com/mozilla-comm/ical.js/issues/257
 
 const icaljsIssue257 = fs.readFileSync(path.join(__dirname, 'icaljs-issue-257.ics'), 'utf-8');
+const icaljsIssue285 = fs.readFileSync(path.join(__dirname, 'icaljs-issue-285.ics'), 'utf-8');
 const recurIcs = fs.readFileSync(path.join(__dirname, 'recur.ics'), 'utf-8');
 
 it('should show first date', function () {
@@ -36,6 +37,19 @@ it('should show nothing at recurring exdate', function () {
 
   assert.equal(events.events.length, 0);
   assert.equal(events.occurrences.length, 0);
+});
+
+it('should parse issue 285 case correctly', function () {
+  const events = new IcalExpander({ ics: icaljsIssue285 })
+    .between(new Date('2017-01-03T00:00:00.000Z'), new Date('2017-01-25T00:00:00.000Z'));
+
+  const allEvents = events.events.concat(events.occurrences);
+  assert.deepEqual(allEvents.map(e => e.startDate.toJSDate().toISOString()), [
+    '2017-01-18T08:00:00.000Z',
+    '2017-01-03T08:00:00.000Z',
+    '2017-01-10T08:00:00.000Z',
+    '2017-01-24T08:00:00.000Z',
+  ]);
 });
 
 it('should parse all recurring events without going on forever', function () {
