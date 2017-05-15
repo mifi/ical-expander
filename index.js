@@ -18,6 +18,18 @@ class IcalExpander {
 
   between(after, before) {
     const exceptions = [];
+
+    this.events = _.filter(this.events, function (e) {
+      try {
+        e.startDate.toJSDate();
+        e.endDate.toJSDate();
+        return true;
+      } catch (e) {
+        // skipping events with invalid time
+        return false;
+      }
+    });
+
     this.events.forEach((event) => {
       if (event.isRecurrenceException()) exceptions.push(event);
     });
