@@ -22,7 +22,7 @@ class IcalExpander {
     skip_invalid = skip_invalid === undefined ? true : skip_invalid;
 
     if (skip_invalid) {
-      this.events = _.filter(this.events, function (e) {
+      this.events = this.events.filter((e) => {
         try {
           e.startDate.toJSDate();
           e.endDate.toJSDate();
