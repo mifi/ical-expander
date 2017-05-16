@@ -16,19 +16,23 @@ class IcalExpander {
     this.events = this.component.getAllSubcomponents('vevent').map(vevent => new ICAL.Event(vevent));
   }
 
-  between(after, before) {
+  between(after, before, skip_invalid) {
     const exceptions = [];
 
-    this.events = _.filter(this.events, function (e) {
-      try {
-        e.startDate.toJSDate();
-        e.endDate.toJSDate();
-        return true;
-      } catch (e) {
-        // skipping events with invalid time
-        return false;
-      }
-    });
+    skip_invalid = skip_invalid === undefined ? true : skip_invalid;
+
+    if (skip_invalid) {
+      this.events = _.filter(this.events, function (e) {
+        try {
+          e.startDate.toJSDate();
+          e.endDate.toJSDate();
+          return true;
+        } catch (e) {
+          // skipping events with invalid time
+          return false;
+        }
+      });
+    }
 
     this.events.forEach((event) => {
       if (event.isRecurrenceException()) exceptions.push(event);
