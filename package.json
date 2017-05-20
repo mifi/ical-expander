@@ -4,7 +4,8 @@
   "description": "ICS / iCal / iCalendar parser / expander",
   "main": "index.js",
   "scripts": {
-    "test": "env TZ=Etc/UTC mocha && eslint ."
+    "test": "env TZ=Etc/UTC mocha && eslint .",
+    "coveralls": "istanbul cover _mocha && istanbul-coveralls"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,8 @@
     "eslint": "^3.18.0",
     "eslint-config-airbnb-base": "^11.1.2",
     "eslint-plugin-import": "^2.2.0",
+    "istanbul": "^0.4.5",
+    "istanbul-coveralls": "^1.0.3",
     "mocha": "^3.2.0"
   },
   "files": [
