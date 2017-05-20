@@ -1,4 +1,4 @@
-# ical-expander 📅💥
+# ical-expander 📅💥 [![Build Status](https://travis-ci.org/mifi/ical-expander.svg?branch=master)](https://travis-ci.org/mifi/ical-expander)
 ICS / iCal / iCalendar parser / expander.
 
 Wrapper around [ical.js](https://github.com/mozilla-comm/ical.js) that automatically handles `EXDATE` (excluded recursive occurrences), `RRULE` and recurring events overridden by `RECURRENCE-ID`.
