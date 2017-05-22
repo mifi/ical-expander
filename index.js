@@ -10,24 +10,23 @@ const timezones = require('./zones-compiled.json');
 class IcalExpander {
   constructor(opts) {
     this.maxIterations = opts.maxIterations != null ? opts.maxIterations : 1000;
+    this.skipInvalidDates = opts.skipInvalidDates != null ? opts.skipInvalidDates : true;
 
     this.jCalData = ICAL.parse(opts.ics);
     this.component = new ICAL.Component(this.jCalData);
     this.events = this.component.getAllSubcomponents('vevent').map(vevent => new ICAL.Event(vevent));
   }
 
-  between(after, before, skip_invalid) {
+  between(after, before) {
     const exceptions = [];
 
-    skip_invalid = skip_invalid === undefined ? true : skip_invalid;
-
-    if (skip_invalid) {
-      this.events = this.events.filter((e) => {
+    if (this.skipInvalidDates) {
+      this.events = this.events.filter((evt) => {
         try {
-          e.startDate.toJSDate();
-          e.endDate.toJSDate();
+          evt.startDate.toJSDate();
+          evt.endDate.toJSDate();
           return true;
-        } catch (e) {
+        } catch (err) {
           // skipping events with invalid time
           return false;
         }

@@ -14,6 +14,7 @@ const path = require('path');
 const icaljsIssue257 = fs.readFileSync(path.join(__dirname, 'icaljs-issue-257.ics'), 'utf-8');
 const icaljsIssue285 = fs.readFileSync(path.join(__dirname, 'icaljs-issue-285.ics'), 'utf-8');
 const recurIcs = fs.readFileSync(path.join(__dirname, 'recur.ics'), 'utf-8');
+const invalidDates = fs.readFileSync(path.join(__dirname, 'invalid_dates.ics'), 'utf-8');
 
 it('should show first date', function () {
   const events = new IcalExpander({ ics: icaljsIssue257 })
@@ -61,4 +62,16 @@ it('should parse all recurring events without going on forever', function () {
   const allEvents = [].concat(outEvents, outOccurrences);
 
   assert.equal(allEvents.length, 1001);
+});
+
+
+it('should correctly parse an ical file with invalid start/end dates', function () {
+  const events = new IcalExpander({ ics: invalidDates })
+    .all();
+
+  const outEvents = events.events.map(e => ({ startDate: e.startDate, summary: e.summary }));
+  const outOccurrences = events.occurrences.map(o => ({ startDate: o.startDate, summary: o.item.summary }));
+  const allEvents = [].concat(outEvents, outOccurrences);
+
+  assert.equal(allEvents.length, 2);
 });
