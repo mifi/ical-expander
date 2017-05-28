@@ -66,7 +66,7 @@ it('should parse all recurring events without going on forever', function () {
 
 
 it('should correctly parse an ical file with invalid start/end dates', function () {
-  const events = new IcalExpander({ ics: invalidDates })
+  const events = new IcalExpander({ ics: invalidDates, skipInvalidDates: true })
     .all();
 
   const outEvents = events.events.map(e => ({ startDate: e.startDate, summary: e.summary }));
