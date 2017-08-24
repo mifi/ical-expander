@@ -114,3 +114,6 @@ rebuild of `zones-compiled.json`, you can run:
 - https://github.com/mozilla-comm/ical.js/issues/294
 - https://nylas.com/blog/rrules/
 - https://github.com/jakubroztocil/rrule
+
+[node]: http://nodejs.org/
+[gulp-cli]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
