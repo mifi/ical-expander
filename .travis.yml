@@ -6,5 +6,4 @@ node_js:
 before_script:
   - npm install -g gulp-cli
 script:
-  gulp
-  npm run test && npm run coveralls
+  gulp && npm run test && npm run coveralls
