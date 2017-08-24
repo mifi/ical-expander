@@ -115,5 +115,6 @@ rebuild of `zones-compiled.json`, you can run:
 - https://nylas.com/blog/rrules/
 - https://github.com/jakubroztocil/rrule
 
+[git]: http://git-scm.com/
 [node]: http://nodejs.org/
 [gulp-cli]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
