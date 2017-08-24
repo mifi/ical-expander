@@ -93,7 +93,7 @@ Enter the directory and install ical-expanders's dependencies:
 	cd fullcalendar
 	npm install
 
-## Development Workflow
+### Development Workflow
 
 To build the distributable file, run from the ical-expander root directory:
 
