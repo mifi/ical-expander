@@ -74,6 +74,38 @@ All methods return:
 ### icalExpander.component
 Root [ICAL.Component](http://mozilla-comm.github.io/ical.js/api/ICAL.Component.html) from parsed data.
 
+## Contributing
+
+### Getting Set Up
+
+You will need [Git][git], [Node][node], and NPM installed.
+
+You will need the [gulp-cli][gulp-cli] NPM package installed globally (`-g`) on your system:
+
+	npm install -g gulp-cli
+
+Having these pre-requisites met, you can clone ical-expander's git repo:
+
+	git clone git://github.com/mifi/ical-expander.git
+
+Enter the directory and install ical-expanders's dependencies:
+
+	cd fullcalendar
+	npm install
+
+## Development Workflow
+
+To build the distributable file, run from the ical-expander root directory:
+
+	gulp
+
+This will automatically compile `zones.json` into `zones-compiled.json`. The compilation
+will however only take place if `zones-compiled.json` is missing or it's filesystem
+modification timestamp is older than `zones.json`'s. If you ever need to force the
+rebuild of `zones-compiled.json`, you can run:
+
+	gulp force-compile-zones
+
 ## TODO
 - RECURRENCE-ID: check that within same day?
 - Get data from moment-timezone instead?
