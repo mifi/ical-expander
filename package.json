@@ -4,6 +4,7 @@
   "description": "ICS / iCal / iCalendar parser / expander",
   "main": "dist/ical-expander.js",
   "scripts": {
+    "prepare": "gulp",
     "test": "env TZ=Etc/UTC mocha && eslint index.js",
     "coveralls": "istanbul cover _mocha && istanbul-coveralls"
   },
