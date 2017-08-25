@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const rename = require('gulp-rename');
+const concat = require('gulp-concat');
 const change = require('gulp-change');
 const fs = require('fs');
 
@@ -7,9 +7,9 @@ const fs = require('fs');
 gulp.task('default', ['compile-zones'], function(cb) {
 	gulp.src('zones-compiled.json')
 		.on('data', function(file) {
-			gulp.src('index.js')
+			gulp.src(['index-head.js', 'index.js', 'index-tail.js'])
+				.pipe(concat('ical-expander.js'))
 				.pipe(change(function (indexjs) { return indexjs.replace('require(\'./zones-compiled.json\')', file.contents.toString()); }))
-				.pipe(rename('ical-expander.js'))
 				.pipe(gulp.dest('dist'))
 				.on('end', cb);
 		});
@@ -30,9 +30,7 @@ gulp.task('compile-zones', function(cb) {
 
 function compileZones(cb) {
 	gulp.src('zones.json')
-		.pipe(rename('zones-compiles.json'))
-		//.pipe(changedInPlace('./zones-compiled.json'))
-		.pipe(change(function (zoneJson) {
+	.pipe(change(function (zoneJson) {
 			const zones = JSON.parse(zoneJson);
 			
 			const out = {};
@@ -49,9 +47,7 @@ function compileZones(cb) {
 			  }
 			});
 			
-			return JSON.stringify(out);
-		})).on('data', function(file) {
-			fs.writeFileSync('./zones-compiled.json', file.contents.toString());
+			fs.writeFileSync('./zones-compiled.json', JSON.stringify(out));
 			cb();
-		});
+		}));
 }
