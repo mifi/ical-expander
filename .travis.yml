@@ -3,5 +3,7 @@ node_js:
   - "4"
   - "6"
 
+before_script:
+  - npm install -g gulp-cli
 script:
-  npm run test && npm run coveralls
+  gulp && npm run test && npm run coveralls

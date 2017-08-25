@@ -1,6 +1,8 @@
 'use strict';
 
-const ICAL = require('ical.js');
+/* global ICAL */
+/* exported IcalExpander */
+
 
 // Copied from https://dxr.mozilla.org/comm-central/source/calendar/timezones/zones.json
 // And compiled using node compile-zones.js
@@ -128,4 +130,4 @@ function registerTimezones() {
 
 registerTimezones();
 
-module.exports = IcalExpander;
+return IcalExpander;

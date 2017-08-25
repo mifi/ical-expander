@@ -1,10 +1,11 @@
 {
   "name": "ical-expander",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "ICS / iCal / iCalendar parser / expander",
-  "main": "index.js",
+  "main": "dist/ical-expander.js",
   "scripts": {
-    "test": "env TZ=Etc/UTC mocha && eslint .",
+    "prepare": "gulp",
+    "test": "env TZ=Etc/UTC mocha && eslint index.js",
     "coveralls": "istanbul cover _mocha && istanbul-coveralls"
   },
   "repository": {
@@ -30,10 +31,12 @@
     "eslint-plugin-import": "^2.2.0",
     "istanbul": "^0.4.5",
     "istanbul-coveralls": "^1.0.3",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+	"gulp": "^3.9.1",
+	"gulp-change": "^1.0.0",
+	"gulp-concat": "^2.6.1"
   },
   "files": [
-    "index.js",
-    "zones-compiled.json"
+    "dist/ical-expander.js"
   ]
 }

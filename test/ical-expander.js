@@ -4,7 +4,7 @@
 /* eslint-disable func-names, prefer-arrow-callback */
 
 const fs = require('fs');
-const IcalExpander = require('../');
+const IcalExpander = require('../dist/ical-expander.js');
 const assert = require('assert');
 const path = require('path');
 
