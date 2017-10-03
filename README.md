@@ -25,7 +25,7 @@ const fs = require('fs');
 
 const ics = fs.readFileSync('./basic.ics', 'utf-8');
 
-const icalExpander = new IcalExpander({ ics, maxIterations: 100 });
+const icalExpander = new IcalExpander({ ics: ics, maxIterations: 100 });
 const events = icalExpander.between(new Date('2017-01-24T00:00:00.000Z'), new Date('2017-03-30T00:00:00.000Z'));
 
 const mappedEvents = events.events.map(e => ({ startDate: e.startDate, summary: e.summary }));
