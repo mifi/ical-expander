@@ -1,6 +1,6 @@
 {
   "name": "ical-expander",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "ICS / iCal / iCalendar parser / expander",
   "main": "index.js",
   "scripts": {
