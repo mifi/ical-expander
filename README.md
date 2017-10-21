@@ -19,6 +19,8 @@ processing large ICS files and with high maxIterations values.
 npm install ical-expander
 ```
 
+⚠️ Warning: This package uses ES6 features, and might require transpiling if used in browsers
+
 ## Example
 
 Download .ics from google calendar for example.
