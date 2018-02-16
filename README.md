@@ -1,9 +1,7 @@
 # ical-expander 📅💥 [![npm version](https://badge.fury.io/js/ical-expander.svg)](https://badge.fury.io/js/ical-expander) [![Build Status](https://travis-ci.org/mifi/ical-expander.svg?branch=master)](https://travis-ci.org/mifi/ical-expander) [![Coverage Status](https://coveralls.io/repos/github/mifi/ical-expander/badge.svg?branch=master)](https://coveralls.io/github/mifi/ical-expander?branch=master) [![Known Vulnerabilities](https://snyk.io/test/github/mifi/ical-expander/badge.svg)](https://snyk.io/test/github/mifi/ical-expander)
 ICS / iCal / iCalendar parser / expander.
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/a3DabSrJLUgh3DWQzN9s8KRM/mifi/ical-expander'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/a3DabSrJLUgh3DWQzN9s8KRM/mifi/ical-expander.svg' />
-</a>
+
 
 Wrapper around [ical.js](https://github.com/mozilla-comm/ical.js) that automatically handles `EXDATE` (excluded recursive occurrences), `RRULE` and recurring events overridden by `RECURRENCE-ID`.
 
