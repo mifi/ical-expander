@@ -78,8 +78,8 @@ it('should correctly parse an ical file with invalid start/end dates', function 
 });
 
 it('should include events that are partially between two dates', function () {
-  const eventIdsBetween = [3, 4, 5, 6, 7];
-  const occurrenceIdsBetween = [8];
+  const eventIdsBetween = ['3', '4', '5', '6', '7'];
+  const occurrenceIdsBetween = ['8'];
 
   const events = new IcalExpander({ ics: betweenTestCalendar })
     .between(new Date('2018-05-02T00:00:00.000Z'), new Date('2018-05-02T23:59:59.999Z'));
@@ -88,13 +88,13 @@ it('should include events that are partially between two dates', function () {
 
   events.events.forEach((event) => {
     assert.ok(
-      eventIdsBetween.findIndex(id => id === event.uid),
+      eventIdsBetween.findIndex(id => id === event.uid) >= 0,
       `${event.uid} is not a valid event between provided dates`);
   });
 
   events.occurrences.forEach((occurrence) => {
     assert.ok(
-      occurrenceIdsBetween.findIndex(id => id === occurrence.item.uid),
+      occurrenceIdsBetween.findIndex(id => id === occurrence.item.uid) >= 0,
       `${occurrence.uid} is not a valid occurrence between provided dates`);
   });
 });

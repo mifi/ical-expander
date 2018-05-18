@@ -63,7 +63,13 @@ class IcalExpander {
             const occurrence = event.getOccurrenceDetails(next);
 
             const startTime = occurrence.startDate.toJSDate().getTime();
-            const endTime = occurrence.endDate.toJSDate().getTime();
+            let endTime = occurrence.endDate.toJSDate().getTime();
+
+            // If it is an all day event, the end date is set to 00:00 of the next day
+            // So we need to make it be 23:59:59 to compare correctly with the given range
+            if (occurrence.endDate.isDate && (endTime > startTime)) {
+              endTime -= 1;
+            }
             const isOccurrenceExcluded = exdates.indexOf(startTime) !== -1;
 
             // TODO check that within same day?
@@ -74,7 +80,7 @@ class IcalExpander {
 
             // Check that we are within our range
             if (
-              (!before || endTime > after.getTime()) &&
+              (!before || endTime >= after.getTime()) &&
               (!after || startTime <= before.getTime())
             ) {
               if (exception) {
@@ -92,9 +98,15 @@ class IcalExpander {
 
       // Non-recurring
       const startTime = event.startDate.toJSDate().getTime();
-      const endTime = event.endDate.toJSDate().getTime();
+      let endTime = event.endDate.toJSDate().getTime();
+
+      // If it is an all day event, the end date is set to 00:00:00.000 of the next day
+      // So we need to make it be 23:59:59.999 to compare correctly with the given range
+      if (event.endDate.isDate && (endTime > startTime)) {
+        endTime -= 1;
+      }
       if (
-        (!before || endTime > after.getTime()) &&
+        (!before || endTime >= after.getTime()) &&
         (!after || startTime <= before.getTime())
       ) ret.events.push(event);
     });
