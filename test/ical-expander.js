@@ -15,6 +15,7 @@ const icaljsIssue257 = fs.readFileSync(path.join(__dirname, 'icaljs-issue-257.ic
 const icaljsIssue285 = fs.readFileSync(path.join(__dirname, 'icaljs-issue-285.ics'), 'utf-8');
 const recurIcs = fs.readFileSync(path.join(__dirname, 'recur.ics'), 'utf-8');
 const invalidDates = fs.readFileSync(path.join(__dirname, 'invalid_dates.ics'), 'utf-8');
+const betweenTestCalendar = fs.readFileSync(path.join(__dirname, 'between_dates.ics'), 'utf-8');
 
 it('should show first date', function () {
   const events = new IcalExpander({ ics: icaljsIssue257 })
@@ -74,4 +75,26 @@ it('should correctly parse an ical file with invalid start/end dates', function 
   const allEvents = [].concat(outEvents, outOccurrences);
 
   assert.equal(allEvents.length, 2);
+});
+
+it('should include events that are partially between two dates', function () {
+  const eventIdsBetween = [3, 4, 5, 6, 7];
+  const occurrenceIdsBetween = [8];
+
+  const events = new IcalExpander({ ics: betweenTestCalendar })
+    .between(new Date('2018-05-02T00:00:00.000Z'), new Date('2018-05-02T23:59:59.999Z'));
+  assert.equal(events.events.length, 5);
+  assert.equal(events.occurrences.length, 1);
+
+  events.events.forEach((event) => {
+    assert.ok(
+      eventIdsBetween.findIndex(id => id === event.uid),
+      `${event.uid} is not a valid event between provided dates`);
+  });
+
+  events.occurrences.forEach((occurrence) => {
+    assert.ok(
+      occurrenceIdsBetween.findIndex(id => id === occurrence.item.uid),
+      `${occurrence.uid} is not a valid occurrence between provided dates`);
+  });
 });

@@ -74,8 +74,8 @@ class IcalExpander {
 
             // Check that we are within our range
             if (
-              (!before || endTime <= before.getTime()) &&
-              (!after || startTime >= after.getTime())
+              (!before || endTime > after.getTime()) &&
+              (!after || startTime <= before.getTime())
             ) {
               if (exception) {
                 ret.events.push(exception);
@@ -94,8 +94,8 @@ class IcalExpander {
       const startTime = event.startDate.toJSDate().getTime();
       const endTime = event.endDate.toJSDate().getTime();
       if (
-        (!before || endTime <= before.getTime()) &&
-        (!after || startTime >= after.getTime())
+        (!before || endTime > after.getTime()) &&
+        (!after || startTime <= before.getTime())
       ) ret.events.push(event);
     });
 

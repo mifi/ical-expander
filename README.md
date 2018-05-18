@@ -51,8 +51,27 @@ const icalExpander = new IcalExpander({ ics, maxIterations })
 ```
 icalExpander.between(after, before)
 ```
-- Include all events with a start time`after` `JS Date`. Default: No start limit.
-- Include all events with an end time `before` `JS Date`. Default: No end limit. __Do not run with no end limit and `maxIteration: 0`__
+Include all events occuring between `after` and `before`. i.e. with a start time before `before` `JS Date` __and__ an end time `after` `JS Date`.
+
+- `after` `JS Date`: Start of range. Default: No start limit.
+- `before` `JS Date`. End of range. Default: No end limit. __Do not run with no end limit and `maxIteration: 0`__
+
+Example of events included between a date range:
+```
+range:    ---------- after |-----------------------| before -------------
+event 1:                   |          start <------|------------> end
+event 2:         start <---|---------------> end   |
+event 3:      start <------|-----------------------|--------------> end
+event 4:                   |    start <---> end    |                                                   
+```
+
+Example of events __not__ included between a date range:
+```
+range:    -------------------- after |--------| before ------------------
+event 5:  start <------> end         |        |
+event 6:                             |        |          start <---> end
+```
+
 
 ### before()
 `icalExpander.before(before)` is an alias for `icalExpander.between(undefined, before)`  
