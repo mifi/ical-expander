@@ -80,8 +80,8 @@ class IcalExpander {
 
             // Check that we are within our range
             if (
-              (!before || endTime >= after.getTime()) &&
-              (!after || startTime <= before.getTime())
+              (!after || endTime >= after.getTime()) &&
+              (!before || startTime <= before.getTime())
             ) {
               if (exception) {
                 ret.events.push(exception);
@@ -106,8 +106,8 @@ class IcalExpander {
         endTime -= 1;
       }
       if (
-        (!before || endTime >= after.getTime()) &&
-        (!after || startTime <= before.getTime())
+        (!after || endTime >= after.getTime()) &&
+        (!before || startTime <= before.getTime())
       ) ret.events.push(event);
     });
 
