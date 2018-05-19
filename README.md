@@ -54,7 +54,7 @@ icalExpander.between(after, before)
 Include all events occuring between `after` and `before`. i.e. with a start time before `before` `JS Date` __and__ an end time `after` `JS Date`.
 
 - `after` `JS Date`: Start of range. Default: No start limit.
-- `before` `JS Date`. End of range. Default: No end limit. __Do not run with no end limit and `maxIteration: 0`__
+- `before` `JS Date`. End of range. Default: No end limit. __Do not run with no end limit and `maxIterations: 0`__
 
 Example of events included between a date range:
 ```
@@ -81,7 +81,7 @@ event 6:                             |        |          start <---> end
 
 ### all()
 `icalExpander.all()` is an alias for `icalExpander.between()`  
-__Do not run this with `maxIteration: 0`__
+__Do not run this with `maxIterations: 0`__
 
 ### Return value
 All methods return:
