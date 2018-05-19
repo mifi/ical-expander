@@ -31,6 +31,24 @@ class IcalExpander {
   }
 
   between(after, before) {
+    function isEventWithinRange(startTime, endTime) {
+      return (!after || endTime >= after.getTime()) &&
+      (!before || startTime <= before.getTime());
+    }
+
+    function getTimes(eventOrOccurrence) {
+      const startTime = eventOrOccurrence.startDate.toJSDate().getTime();
+      let endTime = eventOrOccurrence.endDate.toJSDate().getTime();
+
+      // If it is an all day event, the end date is set to 00:00 of the next day
+      // So we need to make it be 23:59:59 to compare correctly with the given range
+      if (eventOrOccurrence.endDate.isDate && (endTime > startTime)) {
+        endTime -= 1;
+      }
+
+      return { startTime, endTime };
+    }
+
     const exceptions = [];
 
     this.events.forEach((event) => {
@@ -50,6 +68,7 @@ class IcalExpander {
         exdates.push(exdate.toJSDate().getTime());
       });
 
+      // Recurring event is handled differently
       if (event.isRecurring()) {
         const iterator = event.iterator();
 
@@ -62,14 +81,8 @@ class IcalExpander {
           if (next) {
             const occurrence = event.getOccurrenceDetails(next);
 
-            const startTime = occurrence.startDate.toJSDate().getTime();
-            let endTime = occurrence.endDate.toJSDate().getTime();
+            const { startTime, endTime } = getTimes(occurrence);
 
-            // If it is an all day event, the end date is set to 00:00 of the next day
-            // So we need to make it be 23:59:59 to compare correctly with the given range
-            if (occurrence.endDate.isDate && (endTime > startTime)) {
-              endTime -= 1;
-            }
             const isOccurrenceExcluded = exdates.indexOf(startTime) !== -1;
 
             // TODO check that within same day?
@@ -79,10 +92,7 @@ class IcalExpander {
             if (before && startTime > before.getTime()) break;
 
             // Check that we are within our range
-            if (
-              (!after || endTime >= after.getTime()) &&
-              (!before || startTime <= before.getTime())
-            ) {
+            if (isEventWithinRange(startTime, endTime)) {
               if (exception) {
                 ret.events.push(exception);
               } else if (!isOccurrenceExcluded) {
@@ -96,19 +106,10 @@ class IcalExpander {
         return;
       }
 
-      // Non-recurring
-      const startTime = event.startDate.toJSDate().getTime();
-      let endTime = event.endDate.toJSDate().getTime();
+      // Non-recurring event:
+      const { startTime, endTime } = getTimes(event);
 
-      // If it is an all day event, the end date is set to 00:00:00.000 of the next day
-      // So we need to make it be 23:59:59.999 to compare correctly with the given range
-      if (event.endDate.isDate && (endTime > startTime)) {
-        endTime -= 1;
-      }
-      if (
-        (!after || endTime >= after.getTime()) &&
-        (!before || startTime <= before.getTime())
-      ) ret.events.push(event);
+      if (isEventWithinRange(startTime, endTime)) ret.events.push(event);
     });
 
     return ret;
