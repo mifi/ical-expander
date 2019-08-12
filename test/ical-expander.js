@@ -46,9 +46,8 @@ it('should parse issue 285 case correctly', function () {
   const events = new IcalExpander({ ics: icaljsIssue285 })
     .between(new Date('2017-01-03T00:00:00.000Z'), new Date('2017-01-25T00:00:00.000Z'));
 
-  const allEvents = events.events.concat(events.occurrences);
-  assert.deepEqual(allEvents.map(e => e.startDate.toJSDate().toISOString()), [
-    '2017-01-18T08:00:00.000Z',
+  assert.deepEqual(events.events.map(e => e.startDate.toJSDate().toISOString()), ['2017-01-18T08:00:00.000Z']);
+  assert.deepEqual(events.occurrences.map(e => e.startDate.toJSDate().toISOString()), [
     '2017-01-03T08:00:00.000Z',
     '2017-01-10T08:00:00.000Z',
     '2017-01-24T08:00:00.000Z',
