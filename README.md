@@ -5,7 +5,7 @@ ICS / iCal / iCalendar parser / expander.
 
 Wrapper around [ical.js](https://github.com/mozilla-comm/ical.js) that automatically handles `EXDATE` (excluded recursive occurrences), `RRULE` and recurring events overridden by `RECURRENCE-ID`.
 
-Also handles timezones, and includes timezones from the [IANA Time Zone Database](https://www.iana.org/time-zones), so that it parses correctly when a timezone definition is not available in the ICS file itself.
+Also handles timezones, and includes timezones from the [IANA Time Zone Database](https://www.iana.org/time-zones), so that it parses correctly when a timezone definition is not available in the ICS file itself. `zones.json` can be found [here](https://hg.mozilla.org/comm-central/file/tip/calendar/timezones/zones.json) and compiled by running `compile-zones.js`.
 
 Be careful as the processing done in this library is
 synchronous and will block the JS event loop while processing. Especially when
