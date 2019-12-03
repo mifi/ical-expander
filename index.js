@@ -135,7 +135,7 @@ function registerTimezones() {
     const comp = new ICAL.Component(parsed);
     const vtimezone = comp.getFirstSubcomponent('vtimezone');
 
-    ICAL.TimezoneService.register(vtimezone);
+    ICAL.TimezoneService.register(key, new ICAL.Timezone(vtimezone));
   });
 }
 
