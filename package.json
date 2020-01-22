@@ -21,7 +21,7 @@
     "node": ">=4"
   },
   "dependencies": {
-    "ical.js": "1.2.2"
+    "ical.js": "^1.2.2"
   },
   "devDependencies": {
     "env": "0.0.2",
