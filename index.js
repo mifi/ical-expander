@@ -131,7 +131,8 @@ class IcalExpander {
 function registerTimezones() {
   Object.keys(timezones).forEach((key) => {
     const icsData = timezones[key];
-    const parsed = ICAL.parse(`BEGIN:VCALENDAR\nPRODID:-//tzurl.org//NONSGML Olson 2012h//EN\nVERSION:2.0\n${icsData}\nEND:VCALENDAR`);
+    const icsTimezone = `BEGIN:VTIMEZONE\r\nTZID:${key}\r\n${icsData}\r\nEND:VTIMEZONE`;
+    const parsed = ICAL.parse(`BEGIN:VCALENDAR\nPRODID:-//tzurl.org//NONSGML Olson 2012h//EN\nVERSION:2.0\n${icsTimezone}\nEND:VCALENDAR`);
     const comp = new ICAL.Component(parsed);
     const vtimezone = comp.getFirstSubcomponent('vtimezone');
 
