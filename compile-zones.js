@@ -12,12 +12,12 @@ Object.keys(zones.zones).forEach((z) => {
   out[z] = zones.zones[z].ics.join('\r\n');
 });
 
-Object.keys(zones.aliases).forEach((z) => {
-  const aliasTo = zones.aliases[z].aliasTo;
+Object.keys(zones.aliases).forEach((alias) => {
+  const aliasTo = zones.aliases[alias].aliasTo;
   if (zones.zones[aliasTo]) {
-    out[z] = zones.zones[aliasTo].ics.join('\r\n');
+    out[alias] = zones.zones[aliasTo].ics.join('\r\n');
   } else {
-    console.warn(`${aliasTo} (${z}) not found, skipping`);
+    console.warn(`${aliasTo} (${alias}) not found, skipping`);
   }
 });
 

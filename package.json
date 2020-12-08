@@ -4,8 +4,10 @@
   "description": "ICS / iCal / iCalendar parser / expander",
   "main": "index.js",
   "scripts": {
-    "test": "env TZ=Etc/UTC mocha && eslint .",
-    "coveralls": "istanbul cover _mocha && istanbul-coveralls"
+    "lint": "eslint .",
+    "test": "env TZ=Etc/UTC mocha",
+    "coveralls": "istanbul cover _mocha && istanbul-coveralls",
+    "update-zones": "wget -O zones.json https://hg.mozilla.org/comm-central/raw-file/tip/calendar/timezones/zones.json && node compile-zones.js"
   },
   "repository": {
     "type": "git",
