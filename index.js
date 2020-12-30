@@ -16,7 +16,7 @@ class IcalExpander {
     this.component = new ICAL.Component(this.jCalData);
 
     const allVEvents = this.component.getAllSubcomponents('vevent');
-    this.events = allVEvents.map(vevent => {
+    this.events = allVEvents.map((vevent) => {
       const subEvents = vevent.hasProperty('recurrence-id')
         ? null
         : allVEvents.filter(subEvent => subEvent !== vevent && subEvent.getFirstPropertyValue('uid') === vevent.getFirstPropertyValue('uid'));
