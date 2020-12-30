@@ -20,7 +20,11 @@ class IcalExpander {
       const subEvents = vevent.hasProperty('recurrence-id')
         ? null
         : allVEvents.filter(subEvent => subEvent !== vevent && subEvent.getFirstPropertyValue('uid') === vevent.getFirstPropertyValue('uid'));
-      return new ICAL.Event(vevent, { exceptions: subEvents });
+      try {
+        return new ICAL.Event(vevent, { exceptions: subEvents });
+      } catch (err) {
+        return new ICAL.Event(vevent);
+      }
     });
 
     if (this.skipInvalidDates) {
