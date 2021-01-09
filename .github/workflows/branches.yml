@@ -28,6 +28,7 @@ jobs:
           repository: mifi/ical-expander-coverage
           path: push-destination
 
+      # Testing some stuff
       - if: matrix.node == '10'
         run: |
           git config --global user.name github-actions
@@ -42,6 +43,6 @@ jobs:
           git diff-index --quiet HEAD || git commit --message 'Static file updates'
           git push
 
-#      - uses: coverallsapp/github-action@master
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
