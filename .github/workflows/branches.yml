@@ -25,8 +25,8 @@ jobs:
       - name: Generate the badge from the json-summary
         run: node generate-coverage-badge.js coverage/coverage-summary.json
 
-      - name: Copy the badge to the correct location
-        run: cp coverage-badge.svg static-build/
+      - name: Move the badge to the correct location
+        run: mv coverage-badge.svg coverage/
 
       - uses: actions/checkout@v2
         with:
