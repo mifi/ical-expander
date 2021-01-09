@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "env TZ=Etc/UTC mocha",
-    "coverage": "istanbul cover _mocha",
+    "coverage": "env TZ=Etc/UTC nyc --reporter=lcov --reporter=json-summary mocha",
     "update-zones": "wget -O zones.json https://hg.mozilla.org/comm-central/raw-file/tip/calendar/timezones/zones.json && node compile-zones.js"
   },
   "repository": {
@@ -26,12 +26,13 @@
     "ical.js": "^1.2.2"
   },
   "devDependencies": {
+    "badge-maker": "^3.3.0",
     "env": "0.0.2",
     "eslint": "^3.18.0",
     "eslint-config-airbnb-base": "^11.1.2",
     "eslint-plugin-import": "^2.2.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "nyc": "^15.1.0"
   },
   "files": [
     "index.js",

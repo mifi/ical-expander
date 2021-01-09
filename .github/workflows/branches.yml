@@ -22,22 +22,27 @@ jobs:
       - run: npm test
       - run: npm run coverage
 
+      - name: Generate the badge from the json-summary
+        run: node generate-coverage-badge.js coverage/coverage-summary.json
+
+      - name: Copy the badge to the correct location
+        run: cp coverage-badge.svg static-files-destination/
+
       - uses: actions/checkout@v2
         with:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           repository: mifi/ical-expander-coverage
-          path: push-destination
+          path: static-files-destination
 
-      # Testing some stuff
       - if: matrix.node == '10'
         run: |
           git config --global user.name github-actions
           git config --global user.email github-actions@github.com
           # Remove existing files:
-          rm -rf push-destination/*
-          # Copy new files:
-          cp -a coverage/lcov-report/* push-destination/
-          cd push-destination
+          rm -rf static-files-destination/*
+          # Replace with new files:
+          cp -a coverage/lcov-report/* static-files-destination/
+          cd static-files-destination
           git add .
           # git diff-index: to avoid doing the git commit failing if there are no changes to be commit
           git diff-index --quiet HEAD || git commit --message 'Static file updates'
