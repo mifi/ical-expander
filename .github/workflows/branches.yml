@@ -1,0 +1,47 @@
+name: Test local branches
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: ['10', '12', '14']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - run: yarn
+      - run: npm run lint
+      - run: npm test
+      - run: npm run coverage
+
+      - uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          repository: mifi/ical-expander-coverage
+          path: push-destination
+
+      - if: matrix.node == '10'
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          # Remove existing files:
+          rm -rf push-destination/*
+          # Copy new files:
+          cp -a coverage/lcov-report/* push-destination/
+          cd push-destination
+          git add .
+          # git diff-index: to avoid doing the git commit failing if there are no changes to be commit
+          git diff-index --quiet HEAD || git commit --message 'Static file updates'
+          git push
+
+#      - uses: coverallsapp/github-action@master
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}

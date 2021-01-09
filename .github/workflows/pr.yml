@@ -1,6 +1,6 @@
-name: Test
+name: Test Pull Request
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   test:
@@ -20,8 +20,3 @@ jobs:
       - run: yarn
       - run: npm run lint
       - run: npm test
-      - run: npm run coveralls
-
-      - uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}

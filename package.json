@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "env TZ=Etc/UTC mocha",
-    "coveralls": "istanbul cover _mocha",
+    "coverage": "istanbul cover _mocha",
     "update-zones": "wget -O zones.json https://hg.mozilla.org/comm-central/raw-file/tip/calendar/timezones/zones.json && node compile-zones.js"
   },
   "repository": {
