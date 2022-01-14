@@ -7,6 +7,9 @@ const ICAL = require('ical.js');
 // See also https://github.com/mozilla-comm/ical.js/issues/195
 const timezones = require('./zones-compiled.json');
 
+const T = () => true;
+const F = () => false;
+
 class IcalExpander {
   constructor(opts) {
     this.maxIterations = opts.maxIterations != null ? opts.maxIterations : 1000;
@@ -30,10 +33,9 @@ class IcalExpander {
     }
   }
 
-  between(after, before) {
-    function isEventWithinRange(startTime, endTime) {
-      return (!after || endTime >= after.getTime()) &&
-      (!before || startTime <= before.getTime());
+  filter(till, predicate) {
+    function isEventIncluded(times) {
+      return !till(times) && predicate(times);
     }
 
     function getTimes(eventOrOccurrence) {
@@ -81,18 +83,18 @@ class IcalExpander {
           if (next) {
             const occurrence = event.getOccurrenceDetails(next);
 
-            const { startTime, endTime } = getTimes(occurrence);
-
+            const times = getTimes(occurrence);
+            const { startTime, endTime } = times;
             const isOccurrenceExcluded = exdates.indexOf(startTime) !== -1;
 
             // TODO check that within same day?
             const exception = exceptions.find(ex => ex.uid === event.uid && ex.recurrenceId.toJSDate().getTime() === occurrence.startDate.toJSDate().getTime());
 
             // We have passed the max date, stop
-            if (before && startTime > before.getTime()) break;
+            if (till(times)) break;
 
             // Check that we are within our range
-            if (isEventWithinRange(startTime, endTime)) {
+            if (isEventIncluded(times)) {
               if (exception) {
                 ret.events.push(exception);
               } else if (!isOccurrenceExcluded) {
@@ -106,13 +108,20 @@ class IcalExpander {
         return;
       }
 
-      // Non-recurring event:
-      const { startTime, endTime } = getTimes(event);
-
-      if (isEventWithinRange(startTime, endTime)) ret.events.push(event);
+      if (isEventIncluded(getTimes(event))) ret.events.push(event);
     });
 
     return ret;
+  }
+
+  between(after, before) {
+    const beforeTime = before && before.getTime();
+    const till = before ? ({ startTime }) => startTime > beforeTime : F;
+
+    const afterTime = after && after.getTime();
+    const predicate = after ? ({ endTime }) => endTime >= afterTime : T;
+
+    return this.filter(till, predicate);
   }
 
   before(before) {
