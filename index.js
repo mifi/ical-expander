@@ -84,7 +84,7 @@ class IcalExpander {
             const occurrence = event.getOccurrenceDetails(next);
 
             const times = getTimes(occurrence);
-            const { startTime, endTime } = times;
+            const { startTime } = times;
             const isOccurrenceExcluded = exdates.indexOf(startTime) !== -1;
 
             // TODO check that within same day?
