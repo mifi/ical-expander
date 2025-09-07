@@ -37,6 +37,7 @@
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "zones-compiled.json"
   ]
 }
