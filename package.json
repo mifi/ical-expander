@@ -24,7 +24,7 @@
     "node": ">=4"
   },
   "dependencies": {
-    "ical.js": "^2.2.1"
+    "ical.js": "^1.2.2"
   },
   "devDependencies": {
     "badge-maker": "^3.3.0",
