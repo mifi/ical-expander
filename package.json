@@ -3,6 +3,7 @@
   "version": "3.1.0",
   "description": "ICS / iCal / iCalendar parser / expander",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "lint": "eslint .",
     "test": "env TZ=Etc/UTC mocha",
@@ -36,6 +37,7 @@
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "zones-compiled.json"
   ]
 }
